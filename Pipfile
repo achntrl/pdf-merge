@@ -9,6 +9,9 @@ name = "pypi"
 
 flask = "*"
 gunicorn = "*"
+flask-restful = "*"
+"pypdf2" = "*"
+requests = "*"
 
 
 [dev-packages]
