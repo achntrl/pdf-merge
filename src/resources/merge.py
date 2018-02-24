@@ -1,12 +1,13 @@
 import io
 import requests
 
-from flask import Flask, Response
+from flask import Response
 from flask_restful import Resource, reqparse
 from PyPDF2 import PdfFileMerger
 
 parser = reqparse.RequestParser()
 parser.add_argument('pdf_urls', type=str, required=True, location='form', action='append')
+
 
 class MergeResource(Resource):
     def post(self):
