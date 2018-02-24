@@ -1,7 +1,7 @@
 import io
 import requests
 
-from flask import Response
+from flask import jsonify, Response
 from flask_restful import Resource, reqparse
 from PyPDF2 import PdfFileMerger
 
@@ -11,17 +11,25 @@ parser.add_argument('pdf_urls', type=str, required=True, location='form', action
 
 class MergeResource(Resource):
     def post(self):
-        merger = PdfFileMerger()
-
         args = parser.parse_args()
 
+        merger = PdfFileMerger()
+
+        failed_urls = []
         for pdf_url in args['pdf_urls']:
             try:
                 pdf_response = requests.get(pdf_url)
                 pdf_bytes = pdf_response.content
                 merger.append(fileobj=io.BytesIO(pdf_bytes))
             except Exception:
+                failed_urls.append(pdf_url)
                 continue
+
+        if len(failed_urls) > 0:
+            response = jsonify({'failed_urls': failed_urls})
+            response.status_code = 400
+
+            return response
 
         combined_pdf = io.BytesIO()
         merger.write(combined_pdf)
