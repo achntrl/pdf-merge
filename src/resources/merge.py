@@ -17,6 +17,8 @@ class MergeResource(Resource):
 
         failed_urls = []
         for pdf_url in args['pdf_urls']:
+            if pdf_url == "":
+                continue
             try:
                 pdf_response = requests.get(pdf_url)
                 pdf_bytes = pdf_response.content

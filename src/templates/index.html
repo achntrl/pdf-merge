@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Merge PDFs</title>
+    <!-- Une ou plusieurs balises HTML pour définir le contenu du document -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .container {
+            position: relative;
+            height: 250px;
+            padding: 10px 0;
+            width: 720px;
+            margin: auto;
+            margin-top: 50px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container" style="width: 18rem;">
+    <form action="/merge" method="POST">
+        <div id="pdf_inputs" class="form-group">
+            <div><input type="text" name="pdf_urls" class="form-control" placeholder="https://www.example.com/file.pdf"></div>
+            <div><input type="text" name="pdf_urls" class="form-control" placeholder="https://www.example.com/file.pdf"></div>
+        </div>
+        <input class="btn btn-success" type="submit" value="Submit">
+        <button class="btn btn-outline-primary" type="button" onclick="addRow()">+</button>
+        <button class="btn btn-outline-primary" type="button" onclick="removeRow()">-</button>
+    </form>
+    </div>
+        <script>
+            function addRow() {
+                var form = $('#pdf_inputs');
+                var rows = form.children().length - 3;
+                var d = $("<div><input type='text' name='pdf_urls' class='form-control' placeholder='https://www.example.com/file.pdf'></div>");
+                form.append(d);
+            }
+
+            function removeRow() {
+                $('#pdf_inputs > div:last')[0].remove();
+            }
+        </script>
+  </body>
+</html>
+
+
